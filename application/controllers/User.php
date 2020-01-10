@@ -8,6 +8,7 @@ class User extends CI_Controller
     parent::__construct();
     $this->load->model('User_model');
     $this->output->set_content_type('application/json');
+    $this->output->set_header('Access-Control-Allow-Origin: http://localhost:3000');
   }
 
   public function index()
@@ -59,6 +60,14 @@ class User extends CI_Controller
   public function read($id = false)
   {
     $users = $this->User_model->read($id);
+
+    $this->output->set_status_header(200);
+    $this->output->set_output(json_encode($users));
+  }
+
+  public function has_details($id)
+  {
+    $users = $this->User_model->user_details($id);
 
     $this->output->set_status_header(200);
     $this->output->set_output(json_encode($users));

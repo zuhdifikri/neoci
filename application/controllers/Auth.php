@@ -7,6 +7,14 @@ class Auth extends CI_Controller
   {
     parent::__construct();
     $this->load->model('User_model');
+    $this->output->set_content_type('application/json');
+    $this->output->set_header('Access-Control-Allow-Origin: http://localhost:3000');
+    $this->output->set_header('Access-Control-Allow-Methods: POST, OPTIONS');
+    $this->output->set_header('Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding');
+
+    // if ( "OPTIONS" === $_SERVER['REQUEST_METHOD'] ) {
+    //   die();
+    // }
   }
 
   public function index()
@@ -14,7 +22,7 @@ class Auth extends CI_Controller
     $this->load->view('auth/login');
   }
 
-  public function check_login()
+  public function login()
   {
     $validation = [
       [
@@ -35,17 +43,14 @@ class Auth extends CI_Controller
       $user = $this->User_model->login_check();
 
       if ($user) {
-        $data = [
-          'name' => $user->first_name,
-          'is_login' => true
-        ];
-
-        $this->session->set_userdata($data);
-
-        redirect(site_url('home'));
+        unset($user->password);
+        $this->output->set_status_header(200);
+        $this->output->set_output(json_encode($user));
+      } else {
+        $this->output->set_status_header(400);
       }
     } else {
-      redirect(site_url('login'));
+      $this->output->set_status_header(400);
     }
   }
 }

@@ -41,7 +41,7 @@ class User_details extends CI_Controller
         }
     }
 
-    public function read()
+    public function read($id)
     {
         $user_details = $this->User_model->read_details($id);
 

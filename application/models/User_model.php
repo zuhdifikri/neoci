@@ -3,14 +3,13 @@ class User_model extends CI_Model
 {
   private $table = 'users';
   private $table_details = 'user_details';
-
   
   public function login_check()
   {
     $data = [
       'email' => $this->input->post('email')
     ];
-
+    
     $user = $this->db->get_where($this->table, $data)->row();
 
     if ($user && password_verify($this->input->post('password'), $user->password)) {
@@ -44,7 +43,15 @@ class User_model extends CI_Model
       return $query->result();
     }
 
-    $query = $this->db->get_where($this->table, compact($id));
+    $query = $this->db->get_where($this->table, compact('id'));
+    return $query->row();
+  }
+
+  public function user_details($id)
+  {
+    $this->db->select('*');
+    $this->db->join($this->table_details, $this->table_details.'.id='.$this->table.'.id');
+    $query = $this->db->get_where($this->table, [$this->table.'.id' => $id]);
     return $query->row();
   }
 

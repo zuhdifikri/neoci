@@ -103,12 +103,6 @@ class Course extends CI_Controller
     }
   }
 
-  //search
-  public function search($keywords)
-  {
-    
-  }
-
 
 
 
