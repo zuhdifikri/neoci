@@ -8,6 +8,8 @@ class Chapter_episodes extends CI_Controller
         parent::__construct();
         $this->load->model('Chapter_episodes_model');
         $this->output->set_content_type('application/json');
+        $this->output->set_header('Access-Control-Allow-Origin: http://localhost:3000');
+
     }
 
     public function index()
@@ -105,4 +107,14 @@ class Chapter_episodes extends CI_Controller
             $this->output->set_output(json_encode(['message' => 'Gagal menghapus course episode!']));
         }
     }
+
+    public function has_chapters($id)
+    {
+        $chapters = $this->Chapter_episodes_model->chapters($id);
+
+        $this->output->set_status_header(200);
+        $this->output->set_output(json_encode($chapters));
+    }
+
+
 }

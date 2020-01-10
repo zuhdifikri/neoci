@@ -3,6 +3,16 @@
 Class Chapter_episodes_model extends CI_Model
 {
     private $table = 'chapter_episodes';
+    private $table_chapters = 'course_chapters';
+
+
+    public function chapters($id)
+    {
+        $this->db->select('*');
+        $this->db->join($this->table_chapters, $this->table_chapters.'.id='.$this->table.'.id');
+        $query = $this->db->get_where($this->table, [$this->table.'.id' => $id]);
+        return $query->row();
+    }
 
     public function create()
     {

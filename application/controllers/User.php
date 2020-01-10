@@ -122,4 +122,7 @@ class User extends CI_Controller
       $this->output->set_output(json_encode(['message' => 'Tidak dapat menghapus user!']));
     }
   }
+
+  
+
 }

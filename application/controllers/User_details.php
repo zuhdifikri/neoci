@@ -8,6 +8,8 @@ class User_details extends CI_Controller
         parent::__construct();
         $this->load->model('User_model');
         $this->output->set_content_type('application/json');
+        $this->output->set_header('Access-Control-Allow-Origin: http://localhost:3000');
+
     }
 
     public function create()

@@ -3,6 +3,15 @@
 class Course_chapters_model extends CI_Model
 {
     private $table = 'course_chapters';
+    private $table_courses = 'courses';
+
+    public function courses($id)
+    {
+        $this->db->select('*');
+        $this->db->join($this->table_courses, $this->table_courses.'.id='.$this->table.'.id');
+        $query = $this->db->get_where($this->table, [$this->table.'.id' => $id]);
+        return $query->row();
+    }
 
     public function create()
     {
@@ -44,4 +53,5 @@ class Course_chapters_model extends CI_Model
     {
         return $this->db->delete($this->table, compact($id));
     }
+
 }

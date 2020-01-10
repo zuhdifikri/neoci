@@ -6,8 +6,10 @@ class Course_chapters extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model();
+        $this->load->model('Course_chapters_model');
         $this->output->set_content_type('application/json');
+        $this->output->set_header('Access-Control-Allow-Origin: http://localhost:3000');
+
     }
 
     public function index()
@@ -94,5 +96,13 @@ class Course_chapters extends CI_Controller
             $this->output->set_status_header(500);
             $this->output->set_output(json_encode(['message' => 'Tidak dapat menghapus chapter']));
         }
+    }
+
+    public function has_courses($id)
+    {
+        $courses = $this->Course_chapters_model->courses($id);
+
+        $this->output->set_status_header(200);
+        $this->output->set_output(json_encode($courses));
     }
 }
