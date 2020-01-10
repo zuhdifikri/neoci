@@ -13,7 +13,7 @@ class Categories_model extends CI_Model
           return $this->db->insert($this->table, $data);
     }
 
-    public function read()
+    public function read($id)
     {
         if ($id === false) {
         $query = $this->db->get($this->table);

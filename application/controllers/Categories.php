@@ -1,5 +1,5 @@
 <?php
-define('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Categories extends CI_Controller
 {
@@ -36,7 +36,7 @@ class Categories extends CI_Controller
         }
     }
 
-    public function read()
+    public function read($id = false)
     {
         $categories = $this->Categories_model->read($id);
 
